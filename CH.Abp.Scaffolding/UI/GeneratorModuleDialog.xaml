@@ -69,9 +69,8 @@
                 <Label Content="存放文件夹：" 
 					Target="{Binding ElementName=functionGroupName}" />
                 <TextBox  x:Name="functionFolderName" Text="{Binding FunctionFolderName}"  Margin="5,0,0,10" HorizontalContentAlignment="Stretch" />
-                <CheckBox Content="允许批量删除" IsChecked="{Binding AllowBatchDelete}" Margin="5,0,0,9" />
+                <CheckBox Content="表单控件分为两列" IsChecked="{Binding GenerateTwoCol}" Margin="5,0,0,9" />
                 <CheckBox Content="选择Dto和Item类" Visibility="Collapsed" IsChecked="{Binding GenerateDtos}" Margin="5,0,0,9" />
-                <CheckBox Content="覆盖已存在的文件" IsChecked="{Binding OverwriteFiles}"  Margin="5,0,0,9" />
 
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom"

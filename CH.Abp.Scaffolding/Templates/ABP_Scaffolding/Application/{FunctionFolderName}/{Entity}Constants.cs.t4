@@ -15,7 +15,7 @@
 <#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
 <#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
-<#@ Include File="../../../CSharpHelpers.t4" #>
+<#@ Include File="../../CSharpHelpers.t4" #>
 <#@ output extension="cs" #>
 <#
     var entityName = ToCamelCase(EntityName);

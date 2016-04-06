@@ -85,17 +85,12 @@
     </Compile>
     <Compile Include="Scaffolders\ScaffolderFactory.cs" />
     <None Include="packages.config" />
-    <Compile Include="Scaffolders\AreaScaffolder.cs" />
-    <Compile Include="Scaffolders\ModuleScaffolder.cs">
+    <Compile Include="Scaffolders\Scaffolder.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UI\BindBehavior.cs" />
     <Compile Include="UI\ViewFormSetting.xaml.cs">
       <DependentUpon>ViewFormSetting.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\GeneratorAreaViewModel.cs" />
-    <Compile Include="UI\GeneratorAreaDialog.xaml.cs">
-      <DependentUpon>GeneratorAreaDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\GeneratorModuleViewModel.cs">
       <SubType>Code</SubType>
@@ -122,41 +117,43 @@
     <Compile Include="Utils\StorageMan.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
-    <None Include="Templates\ABP_Scaffolding\Areas\{Module}\Controllers\{Entity}Controller.cs.t4" />
-    <None Include="Templates\ABP_Scaffolding\Areas\{Module}\Views\{Entity}\Create{Entity}.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Web\Controllers\{Entity}Controller.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Areas\{Module}\Views\{Entity}\Update{Entity}.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Web\Views\{FunctionFolderName}\Create{Entity}.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Areas\{Module}\Views\{Entity}\{Entity}.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Web\Views\{FunctionFolderName}\Update{Entity}.cs.t4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\ABP_Scaffolding\Web\Views\{FunctionFolderName}\{Entity}.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\ABP_Scaffolding\CSharpHelpers.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\Dto\Create{Entity}Dto.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\Dto\Create{Entity}Dto.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\Dto\Get{Entity}ListDto.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\Dto\Get{Entity}ListDto.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\Dto\Update{Entity}Dto.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\Dto\Update{Entity}Dto.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\I{Entity}AppService.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\I{Entity}AppService.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\{Entity}AppService.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\{Entity}AppService.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Application\{FunctionFolderName}\{Entity}Constants.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\{Entity}Constants.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Domain\{FunctionFolderName}\Repositories\I{Entity}Repository.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\Repositories\I{Entity}Repository.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\ABP_Scaffolding\Module\Repository\{FunctionFolderName}\Repositories\{Entity}Repository.cs.t4">
+    <None Include="Templates\ABP_Scaffolding\EntityFramework\Repositories\{Entity}Repository.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -168,10 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="UI\ViewFormSetting.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\GeneratorAreaDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

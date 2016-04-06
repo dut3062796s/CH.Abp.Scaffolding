@@ -1,14 +1,25 @@
 ﻿<#@ template language="C#" HostSpecific="True" Debug="Flase" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
 <#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ import namespace="CH.Abp.Scaffolding.Models" #>
+
+
+<#@ parameter type="System.String" name="ProjectNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
 <#@ parameter type="System.String" name="ModuleName" #>
 <#@ parameter type="System.String" name="EntityName" #>
 <#@ parameter type="System.String" name="FunctionName" #>
-<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.Boolean" name="GenerateTwoCol" #>
+<#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
 <#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ parameter type="System.String" name="ProjectName" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
-<#@ Include File="../../../../CSharpHelpers.t4" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
 <#@ output extension="cshtml" #>
 <#
     var entityName = ToCamelCase(EntityName);
@@ -188,7 +199,7 @@
 							 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-width="50">编号</th>
 							<#
-    foreach (MetaColumnInfo column in ItemMetaTable.Columns) {
+    foreach (MetaColumnInfo column in DtoMetaTable.Columns) {
 #>
                    <th data-field="<#= ToCamelCase(column.Name) #>" data-sortable="true"><#= column.DisplayName #></th>
 <#

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using EnvDTE;
@@ -218,6 +219,27 @@ namespace CH.Abp.Scaffolding.UI
             }
         }
 
+      
+
+        private bool _GenerateTwoCol = true;
+
+        /// <summary>
+        /// 表单控件分两列布局
+        /// </summary>
+        public bool GenerateTwoCol
+        {
+            get { return _GenerateTwoCol; }
+            set
+            {
+                if (value == _GenerateTwoCol)
+                {
+                    return;
+                }
+                _GenerateTwoCol = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// 允许批量删除
         /// </summary>
@@ -375,7 +397,6 @@ namespace CH.Abp.Scaffolding.UI
                     ICodeTypeService codeTypeService = GetService<ICodeTypeService>();
                     Project project = _context.ActiveProject;
 
-
                     var modelTypes = codeTypeService
                                         .GetAllCodeTypes(project)
                                         .Where(codeType => IsEntityClass(codeType))
@@ -385,6 +406,26 @@ namespace CH.Abp.Scaffolding.UI
                 }
                 return _modelTypeCollection;
             }
+        }
+
+        public IEnumerable<ProjectItem> GetProjectItems(EnvDTE.ProjectItems projectItems)
+        {
+            foreach (EnvDTE.ProjectItem item in projectItems)
+            {
+                yield return item;
+
+                if (item.SubProject != null)
+                {
+                    foreach (EnvDTE.ProjectItem childItem in GetProjectItems(item.SubProject.ProjectItems))
+                        yield return childItem;
+                }
+                else
+                {
+                    foreach (EnvDTE.ProjectItem childItem in GetProjectItems(item.ProjectItems))
+                        yield return childItem;
+                }
+            }
+
         }
 
         private bool IsEntityClass(CodeType codeType)

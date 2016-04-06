@@ -15,7 +15,7 @@
 <#@ parameter type="System.String" name="ProjectName" #>
 <#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
-<#@ Include File="../../../../CSharpHelpers.t4" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
 <#
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);

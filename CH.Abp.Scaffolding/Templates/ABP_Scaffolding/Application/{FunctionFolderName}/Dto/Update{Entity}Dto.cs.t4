@@ -11,11 +11,11 @@
 <#@ parameter type="System.String" name="ModuleNamespace" #>
 <#@ parameter type="System.String" name="ModuleName" #>
 <#@ parameter type="System.String" name="EntityName" #>
-<#@ parameter type="System.String" name="FunctionName" #>
 <#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
-<#@ Include File="../../../../CSharpHelpers.t4" #>
 <#@ output extension="cs" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
 <#
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);
@@ -33,7 +33,7 @@ using CH.Spartan.Users;
 namespace <#= ModuleNamespace #>.Dto
 {
     [AutoMap(typeof(<#= EntityName #>))]
-    public class Create<#= EntityName #>Dto : IDoubleWayDto
+    public class Update<#= EntityName #>Dto : IDoubleWayDto
        {
 <#
     foreach (MetaColumnInfo column in DtoMetaTable.Columns) {
@@ -67,20 +67,18 @@ namespace <#= ModuleNamespace #>.Dto
 #>
     }
 
-    public class Create<#= EntityName #>Input : IInputDto
+    public class Update<#= EntityName #>Input : IInputDto
     {
-        public Create<#= EntityName #>Dto <#= EntityName #> { get; set; }
+        public Update<#= EntityName #>Dto <#= EntityName #> { get; set; }
     }
 
-    public class Create<#= EntityName #>Output : IOutputDto
+    public class Update<#= EntityName #>Output : IOutputDto
     {
-        public Create<#= EntityName #>Output(Create<#= EntityName #>Dto <#= entityName #>)
+        public Update<#= EntityName #>Output(Update<#= EntityName #>Dto <#= entityName #>)
         {
             <#= EntityName #> = <#= entityName #>;
         }
 
-        public Create<#= EntityName #>Dto <#= EntityName #> { get; set; }
+        public Update<#= EntityName #>Dto <#= EntityName #> { get; set; }
     }
 }
-
-

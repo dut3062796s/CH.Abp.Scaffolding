@@ -14,12 +14,12 @@ namespace CH.Abp.Scaffolding.Scaffolders
     // 1) ShowUIAndValidate() - 显示一个Visual Studio的对话框用于设置生成参数
     // 2) Validate() - 确认提取的Model   validates the model collected from the dialog
     // 3) GenerateCode() - 根据模板生成代码文件 if all goes well, generates the scaffolding output from the templates
-    public class ModuleScaffolder : CodeGenerator
+    public class Scaffolder : CodeGenerator
     {
 
         private GeneratorModuleViewModel _moduleViewModel;
 
-        internal ModuleScaffolder(CodeGenerationContext context, CodeGeneratorInformation information)
+        internal Scaffolder(CodeGenerationContext context, CodeGeneratorInformation information)
             : base(context, information)
         {
 
@@ -97,35 +97,55 @@ namespace CH.Abp.Scaffolding.Scaffolders
             var functionFolderName = _moduleViewModel.FunctionFolderName;
             var isDisplayOrderable = IsDisplayOrderable(entity);
             var overwrite = _moduleViewModel.OverwriteFiles;
+            var generateTwoCol = _moduleViewModel.GenerateTwoCol;
 
-            Dictionary<string, object> templateParams = new Dictionary<string, object>(){
+            Dictionary<string, object> templateParams = new Dictionary<string, object>()
+            {
                 {"ProjectNamespace", projectNamespace}
-                , {"EntityNamespace", entityNamespace}
-                , {"ModuleNamespace", moduleNamespace}
-                , {"ModuleName", moduleName}
-                , {"EntityName", entityName}
-                , {"ProjectName", projectName}
-                , {"FunctionName", functionName}
-                , {"FunctionFolderName", functionFolderName}
-                , {"DtoMetaTable", _moduleViewModel.DtoClassMetadataViewModel.DataModel}
-                , {"AllowBatchDelete", _moduleViewModel.AllowBatchDelete}
-                , {"IsDisplayOrderable", isDisplayOrderable}
+                ,
+                {"EntityNamespace", entityNamespace}
+                ,
+                {"ModuleNamespace", moduleNamespace}
+                ,
+                {"ModuleName", moduleName}
+                ,
+                {"EntityName", entityName}
+                ,
+                {"ProjectName", projectName}
+                ,
+                {"FunctionName", functionName}
+                ,
+                {"FunctionFolderName", functionFolderName}
+                ,
+                {"GenerateTwoCol", generateTwoCol}
+                ,
+                {"DtoMetaTable", _moduleViewModel.DtoClassMetadataViewModel.DataModel}
+                ,
+                {"AllowBatchDelete", _moduleViewModel.AllowBatchDelete}
+                ,
+                {"IsDisplayOrderable", isDisplayOrderable}
             };
 
-            var templates = new[] {
-                @"Module\Application\{FunctionFolderName}\Dto\Create{Entity}Dto"
-                , @"Module\Application\{FunctionFolderName}\Dto\Get{Entity}ListDto"
-                , @"Module\Application\{FunctionFolderName}\Dto\Update{Entity}Dto"
-                , @"Module\Application\{FunctionFolderName}\I{Entity}AppService"
-                , @"Module\Application\{FunctionFolderName}\{Entity}AppService"
-                , @"Module\Application\{FunctionFolderName}\{Entity}Constants"
-                , @"Module\Domain\{FunctionFolderName}\Repositories\I{Entity}Repository"
-                , @"Module\Repository\{FunctionFolderName}\Repositories\{Entity}Repository"
+            var templates = new[]
+            {
+                @"Application\{FunctionFolderName}\Dto\Create{Entity}Dto"
+                , @"Application\{FunctionFolderName}\Dto\Get{Entity}ListDto"
+                , @"Application\{FunctionFolderName}\Dto\Update{Entity}Dto"
+                , @"Application\{FunctionFolderName}\I{Entity}AppService"
+                , @"Application\{FunctionFolderName}\{Entity}AppService"
+                , @"Application\{FunctionFolderName}\{Entity}Constants"
+                , @"Core\{FunctionFolderName}\Repositories\I{Entity}Repository"
+                , @"EntityFramework\Repositories\{Entity}Repository"
+                , @"Web\Controllers\{Entity}Controller"
+                , @"Web\Views\{FunctionFolderName}\{Entity}"
+                , @"Web\Views\{FunctionFolderName}\Update{Entity}"
+                , @"Web\Views\{FunctionFolderName}\Create{Entity}"
             };
-        
+
             foreach (var template in templates)
             {
-                string outputPath = Path.Combine(@"_GeneratedCode\" + moduleName, template.Replace("{Entity}", entityName));
+                string outputPath = Path.Combine(@"_Code\" + moduleName,
+                    template.Replace("{Entity}", entityName).Replace("{Entity}", entityName));
                 if (string.IsNullOrWhiteSpace(functionFolderName))
                 {
                     outputPath = outputPath.Replace(@"\{FunctionFolderName}", "");
@@ -136,9 +156,38 @@ namespace CH.Abp.Scaffolding.Scaffolders
                 }
                 //WriteLog("outputPath:" + outputPath);
                 //WriteLog("templatePath:" + templatePath);
-                AddFileFromTemplate(project, outputPath, template, templateParams, !overwrite);
+                try
+                {
+                    AddFileFromTemplate(project, outputPath, template, templateParams, true);
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                }
             }
 
+            //templates = new[]
+            //{
+            //    @"Areas\{Module}\Controllers\{Entity}Controller"
+            //    , @"Areas\{Module}\Views\{Entity}\{Entity}"
+            //    , @"Areas\{Module}\Views\{Entity}\Update{Entity}"
+            //    , @"Areas\{Module}\Views\{Entity}\Create{Entity}"
+            //};
+
+            //foreach (var template in templates)
+            //{
+            //    string outputPath = Path.Combine(@"_Areas\",
+            //        template.Replace("{Module}", moduleName).Replace("{Entity}", entityName));
+
+            //    try
+            //    {
+            //        AddFileFromTemplate(project, outputPath, template, templateParams, true);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        // ignored
+            //    }
+            //}
         }
 
         private void WriteLog(string str)
@@ -154,7 +203,7 @@ namespace CH.Abp.Scaffolding.Scaffolders
         private string getModuleNamespace(string entityNamespace)
         {
             var list = entityNamespace.Split('.').ToList();
-            return string.Join(".", list); 
+            return string.Join(".", list);
         }
 
         private string getModuleName(string moduleNamespace)

@@ -4,7 +4,6 @@
     <Identity Id="1a1a226e-b83b-4507-8fcb-6988a6bf4730" Version="1.0" Language="en-US" Publisher="CH" />
     <DisplayName>CH.Abp.Scaffolding</DisplayName>
     <Description xml:space="preserve">生成ABP项目的模板文件</Description>
-    <License>LICENSE.txt</License>
     <Tags>Scaffolding</Tags>
   </Metadata>
   <Installation>
