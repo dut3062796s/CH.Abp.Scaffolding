@@ -1,0 +1,108 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="False" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="CH.Abp.Scaffolding.Models" #>
+<#@ parameter type="System.String" name="EntityNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
+<#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
+<#@ output extension="cs" #><#
+    var entityName = ToCamelCase(EntityName);
+#>
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
+using Abp.Linq.Extensions;
+using CH.Spartan.Authorization.Roles;
+using CH.Spartan.Commons.Dto;
+using CH.Spartan.Editions;
+using CH.Spartan.MultiTenancy.Dto;
+using CH.Spartan.Users;
+using System.Linq.Dynamic;
+using Abp.Extensions;
+using CH.Spartan.Commons.Linq;
+using System;
+using System.Data.Entity;
+using Abp.Domain.Entities;
+
+namespace <#= ModuleNamespace #>
+{
+	[AbpAuthorize(<#= ModuleName #>_<#= EntityName #>)]
+    public class <#= EntityName #>AppService : SpartanAppServiceBase, I<#= EntityName #>AppService
+    {
+        private readonly <#= EntityName #>Manager _<#= entityName #>Manager;
+        private readonly RoleManager _roleManager;
+        private readonly EditionManager _editionManager;
+        private readonly IRepository<<#= EntityName #>> _<#= entityName #>Repository;
+        public <#= EntityName #>AppService(IRepository<<#= EntityName #>Repository> <#= entityName #>Repository)
+        {
+            _<#= entityName #>Repository = <#= entityName #>Repository;
+        }
+	
+        public async Task<ListResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListAsync(Get<#= EntityName #>ListInput input)
+        {
+            var query = _<#= entityName #>Repository.GetAll()
+                .OrderBy(input)
+                .ToListAsync();
+            return new ListResultOutput<Get<#= EntityName #>ListDto>(list.MapTo<List<Get<#= EntityName #>ListDto>>());
+        }
+		
+        public async Task<PagedResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListPagedAsync(Get<#= EntityName #>ListPagedInput input)
+        {
+            var query = _<#= entityName #>Repository.GetAll()
+                .WhereIf(!input.SearchText.IsNullOrEmpty(), p => p.TenancyName.Contains(input.SearchText) || p.Name.Contains(input.SearchText));
+
+            var count = await query.CountAsync();
+
+            var list = await query.OrderBy(input).PageBy(input).ToListAsync();
+
+            return new PagedResultOutput<Get<#= EntityName #>ListDto>(count, list.MapTo<List<Get<#= EntityName #>ListDto>>());
+        }
+		
+		[AbpAuthorize(<#= ModuleName #>_<#= EntityName #>_Create)]
+        public async Task Create<#= EntityName #>Async(Create<#= EntityName #>Input input)
+        {
+            var <#= entityName #> = input.<#= EntityName #>.MapTo<<#= EntityName #>>();
+            await _<#= entityName #>Repository.InsertAsync(<#= entityName #>);
+        }
+		[AbpAuthorize(<#= ModuleName #>_<#= EntityName #>_Update)]
+        public async Task Update<#= EntityName #>Async(Update<#= EntityName #>Input input)
+        {
+            var <#= entityName #> = await _<#= entityName #>Repository.FirstOrDefaultAsync(input.<#= EntityName #>.Id);
+            input.<#= EntityName #>.MapTo(<#= entityName #>);
+            await _<#= entityName #>Repository.UpdateAsync(<#= entityName #>);
+        }
+	
+        public Create<#= EntityName #>Output GetNew<#= EntityName #>()
+        {
+            return new Create<#= EntityName #>Output(new Create<#= EntityName #>Dto());
+        }
+
+		public async Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
+        {
+            return new Update<#= EntityName #>Output((await _<#= entityName #>Repository.GetAsync(input.Id)).MapTo<Update<#= EntityName #>Dto>());
+        }
+
+		[AbpAuthorize(<#= ModuleName #>_<#= EntityName #>_Delete)]
+        public async Task Delete<#= EntityName #>Async(List<IdInput> input)
+        {
+            await _<#= entityName #>Repository.DeleteAsync(p => p.Id.IsIn(input.Select(o => o.Id).ToArray()));
+        }
+        
+    }
+}

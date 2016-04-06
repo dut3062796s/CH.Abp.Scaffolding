@@ -1,0 +1,86 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="False" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="CH.Abp.Scaffolding.Models" #>
+<#@ parameter type="System.String" name="EntityNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
+<#@ Include File="../../../../CSharpHelpers.t4" #>
+<#@ output extension="cs" #>
+<#
+    var entityName = ToCamelCase(EntityName);
+	 var moduleName = ToCamelCase(ModuleName);
+#>
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using CH.Spartan.Users;
+
+namespace <#= ModuleNamespace #>.Dto
+{
+    [AutoMap(typeof(<#= EntityName #>))]
+    public class Create<#= EntityName #>Dto : IDoubleWayDto
+       {
+<#
+    foreach (MetaColumnInfo column in DtoMetaTable.Columns) {
+        if (!column.IsDtoVisible) continue;
+#>
+<#
+        if (column.DisplayName != column.Name){
+#>
+        /// <summary>
+        /// <#= column.DisplayName #>
+        /// </summary>
+<#
+        }
+#>
+<#
+        if (column.Required){
+#>
+        [Required]
+<#      }
+
+        if (column.HasMetaAttribute){
+#>
+        <#= column.MetaAttribute #>
+<#
+        }
+#>
+        public <#= column.strDataType #> <#= column.Name #> { get; set; }
+
+<#
+    }
+#>
+    }
+
+    public class Create<#= EntityName #>Input : IInputDto
+    {
+        public Create<#= EntityName #>Dto <#= EntityName #> { get; set; }
+    }
+
+    public class Create<#= EntityName #>Output : IOutputDto
+    {
+        public Create<#= EntityName #>Output(Create<#= EntityName #>Dto <#= entityName #>)
+        {
+            <#= EntityName #> = <#= entityName #>;
+        }
+
+        public Create<#= EntityName #>Dto <#= EntityName #> { get; set; }
+    }
+}
+
+

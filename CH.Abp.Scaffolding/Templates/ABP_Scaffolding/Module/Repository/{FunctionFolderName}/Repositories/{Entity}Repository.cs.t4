@@ -1,0 +1,36 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="False" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ parameter type="System.String" name="EntityNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
+<#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ output extension="cs" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using Abp.EntityFramework;
+using Abp.Domain.Repositories;
+using Abp.Extensions;
+using <#= ModuleNamespace #>;
+
+namespace CH.Spartan.EntityFramework.Repositories
+{
+    public class <#= EntityName #>Repository : <#= ProjectName #>RepositoryBase, I<#= EntityName #>Repository
+    {
+        public <#= EntityName #>Repository(IDbContextProvider<<#= ProjectName #>DbContext> dbContextProvider)
+            : base(dbContextProvider)
+        {
+        }
+    }
+}

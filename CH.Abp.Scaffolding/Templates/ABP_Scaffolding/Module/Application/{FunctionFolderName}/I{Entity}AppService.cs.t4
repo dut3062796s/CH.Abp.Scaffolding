@@ -1,0 +1,83 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="False" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="CH.Abp.Scaffolding.Models" #>
+<#@ parameter type="System.String" name="EntityNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
+<#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
+<#@ output extension="cs" #><#
+    var entityName = ToCamelCase(EntityName);
+#>
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using CH.Spartan.Commons.Dto;
+using CH.Spartan.MultiTenancy.Dto;
+
+namespace <#= ModuleNamespace #>
+{
+
+    public interface I<#= EntityName #>AppService : IApplicationService
+    {
+        /// <summary>
+        /// 获取 <#= FunctionName #>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<ListResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListAsync(Get<#= EntityName #>ListInput input);
+
+        /// <summary>
+        /// 获取 <#= FunctionName #> 分页
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<PagedResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListPagedAsync(Get<#= EntityName #>ListPagedInput input);
+
+        /// <summary>
+        /// 添加 <#= FunctionName #>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task Create<#= EntityName #>Async(Create<#= EntityName #>Input input);
+
+        /// <summary>
+        /// 更新 <#= FunctionName #>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task Update<#= EntityName #>Async(Update<#= EntityName #>Input input);
+
+        /// <summary>
+        /// 获取 新<#= FunctionName #>
+        /// </summary>
+        /// <returns></returns>
+        Create<#= EntityName #>Output GetNew<#= EntityName #>();
+
+        /// <summary>
+        /// 获取 更新<#= FunctionName #>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input);
+
+        /// <summary>
+        /// 删除 <#= FunctionName #>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task Delete<#= EntityName #>Async(List<IdInput> input);
+    }
+}

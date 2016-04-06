@@ -1,0 +1,207 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="Flase" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="CH.Abp.Scaffolding.Models" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
+<#@ Include File="../../../../CSharpHelpers.t4" #>
+<#@ output extension="cshtml" #>
+<#
+    var entityName = ToCamelCase(EntityName);
+	 var moduleName = ToCamelCase(ModuleName);
+#>
+@using System.Web.Optimization
+@section styles
+{
+    @Styles.Render("~/styles/plugins/table")
+}
+@section scripts
+{
+    @Scripts.Render("~/scripts/plugins/table")
+    <script type="text/javascript">
+        //操作
+        function formatterOp(value, row, index) {
+            var edit="";
+			var del="";
+			@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Update))
+			{
+				edit = '<i class="btn-op fa fa-edit" title="@L("修改")" onclick="update(\'' + row.id + '\')"></i>';
+			}
+			@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Delete))
+			{
+				del = '<i class="btn-op fa fa-trash-o" title="@L("删除")" onclick="del(\'' + row.id + '\')"></i>';
+			}
+            return edit + del;
+        }
+
+       
+		@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Create))
+			{
+				 //添加
+        function create() {
+            abp.dialog.open("/<#= EntityName #>/Create<#= EntityName #>", "@L("添加")@L("<#= FunctionName #>")", {
+                 <# if (GenerateTwoCol) { #>
+           area: ["60%", "50%"],
+			<# } else { #>
+					   area: ["30%", "50%"],
+			<# } #>
+                btn: ["@L("确定")", '@L("取消")'],
+                yes: function(index, layero) {
+                    var iframeWin = layero.find("iframe")[0].contentWindow;
+                    iframeWin.saveData();
+                },
+                cancel: function(index) {
+                    debugger;
+                },
+                end: function() {
+                    debugger;
+                }
+            });
+        }
+		    }
+		
+           @if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Update))
+			{
+				//更新
+        function update(id) {
+            abp.dialog.open("/<#= EntityName #>/Update<#= EntityName #>?id=" + id, "@L("修改")@L("<#= FunctionName #>")", {
+           <# if (GenerateTwoCol) { #>
+           area: ["60%", "50%"],
+			<# } else { #>
+					   area: ["30%", "50%"],
+			<# } #>
+				
+				
+                btn: ["@L("保存")", '@L("取消")'],
+                yes: function(index, layero) {
+                    var iframeWin = layero.find("iframe")[0].contentWindow;
+                    iframeWin.saveData();
+                },
+                cancel: function(index) {
+                    $("#btn-search").click();
+                },
+                end: function() {
+                    $("#btn-search").click();
+                }
+            });
+        }
+		    }
+        
+
+		@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Delete))
+			{
+				//删除
+        function del(ids) {
+            abp.message.confirm("@L("确定")@L("删除")?", function(yes) {
+                if (!yes) return;
+                abp.ajax({
+                    url: "/<#= EntityName #>/Delete<#= EntityName #>",
+                    data: JSON.stringify(ids)
+                }).done(function (result) {
+                    abp.notify.success("@L("删除")@L("成功")");
+					$("#btn-search").click();
+                });
+            });
+        }
+		    }
+
+
+        
+
+        (function($) {
+            if (!$) {
+                return;
+            }
+
+            //搜索
+            $("#btn-search").click(function() {
+                var args =
+                {
+                    query: abp.utils.getFormData("#form")
+                }
+                $("#table").bootstrapTable("refresh", args);
+            });
+			@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Create))
+			{
+				//添加
+				$("#btn-add").click(function() {
+					create();
+				});
+			}
+
+           @if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Delete))
+			{
+				//删除
+				$("#btn-del").click(function() {
+					var rows = $("#table").bootstrapTable("getSelections");
+					var ids = [];
+					$.each(rows,function(index, item) {
+						ids.push(item.id);
+					});
+					del(ids);
+				});
+		    }
+
+           
+        })(jQuery);
+    </script>
+}
+<div class="wrapper wrapper-content animated lightSpeedIn list">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content list-toolbar">
+                    <form role="form" class="form-inline" id="form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="@L("请输入关键字")" name="SearchText">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" id="btn-search">@L("查询")</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="ibox-content list-content">
+                    <div class="btn-group hidden-xs" id="tableToolbar" role="group">
+						@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Create))
+						{
+							<button type="button" class="btn btn-outline btn-default" id="btn-add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+						}
+						@if (IsGranted(Permissions.<#= ModuleName #>_<#= EntityName #>_Delete))
+						{
+							 <button type="button" class="btn btn-outline btn-default" id="btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+						}
+                    </div>
+                    <table id="table"
+                           data-toggle="table"
+                           data-url="/<#= EntityName #>/Search<#= EntityName #>"
+                           data-toolbar="#tableToolbar"
+                           data-height="550"
+                           data-show-export="true">
+                        <thead>
+                            <tr>
+							 <th data-field="state" data-checkbox="true"></th>
+                                <th data-field="id" data-sortable="true" data-width="50">编号</th>
+							<#
+    foreach (MetaColumnInfo column in ItemMetaTable.Columns) {
+#>
+                   <th data-field="<#= ToCamelCase(column.Name) #>" data-sortable="true"><#= column.DisplayName #></th>
+<#
+    }
+#>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

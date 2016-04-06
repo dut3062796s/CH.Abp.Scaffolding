@@ -1,0 +1,112 @@
+﻿<#@ template language="C#" HostSpecific="True" Debug="Flase" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data.Linq" #>
+<#@ ScaffoldingAssembly Processor="ScaffoldingAssemblyLoader" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
+<#@ import namespace="CH.Abp.Scaffolding.Models" #>
+<#@ parameter type="System.String" name="ProjectNamespace" #>
+<#@ parameter type="System.String" name="ModuleNamespace" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.String" name="FunctionName" #>
+<#@ parameter type="System.Boolean" name="GenerateTwoCol" #>
+<#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
+<#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
+<#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
+<#@ Include File="../../../CSharpHelpers.t4" #>
+<#@ output extension="cs" #><#
+    var entityName = ToCamelCase(EntityName);
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using Abp.Application.Services.Dto;
+using Abp.Web.Models;
+using Abp.Web.Mvc.Models;
+using Abp.WebApi.Authorization;
+using CH.Spartan.<#= EntityName #>;
+using CH.Spartan.<#= EntityName #>.Dto;
+
+namespace <#= ProjectNamespace #>.Controllers
+{
+    [AbpApiAuthorize]
+    public class <#= EntityName #>Controller : <#= ProjectName #>ControllerBase
+    {
+        private readonly I<#= EntityName #>AppService _<#= entityName #>AppService;
+
+        public <#= EntityName #>Controller(I<#= EntityName #>AppService <#= entityName #>AppService)
+        {
+            _<#= entityName #>AppService = <#= entityName #>AppService;
+        }
+
+        #region <#= FunctionName #>
+
+        #region 首页
+        public ActionResult <#= EntityName #>()
+        {
+            return View();
+        }
+        #endregion
+
+        #region 搜索
+
+        [HttpGet]
+        public async Task<JsonResult> Search<#= EntityName #>(Get<#= EntityName #>ListPagedInput input)
+        {
+            var result = await _<#= entityName #>AppService.Get<#= EntityName #>ListPagedAsync(input);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 添加
+        [HttpGet]
+        public ActionResult Create<#= EntityName #>()
+        {
+            var result = _<#= entityName #>AppService.GetNew<#= EntityName #>();
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Create<#= EntityName #>(Create<#= EntityName #>Input input)
+        {
+            await _<#= entityName #>AppService.Create<#= EntityName #>Async(input);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 更新
+        [HttpGet]
+        public ActionResult Update<#= EntityName #>(IdInput input)
+        {
+            var result = _<#= entityName #>AppService.GetUpdate<#= EntityName #>Async(input);
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Update<#= EntityName #>(Update<#= EntityName #>Input input)
+        {
+            await _<#= entityName #>AppService.Update<#= EntityName #>Async(input);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 删除
+        [HttpPost]
+        public async Task<JsonResult> Delete<#= EntityName #>(List<IdInput> input)
+        {
+            await _<#= entityName #>AppService.Delete<#= EntityName #>Async(input);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+
+        #endregion
+    }
+}
