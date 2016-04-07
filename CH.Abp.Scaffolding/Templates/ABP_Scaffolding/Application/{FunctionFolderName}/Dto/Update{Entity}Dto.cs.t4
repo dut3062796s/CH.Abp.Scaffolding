@@ -28,7 +28,7 @@ using Abp.AutoMapper;
 namespace <#= ModuleNamespace #>.Dto
 {
     [AutoMap(typeof(<#= EntityName #>))]
-    public class Update<#= EntityName #>Dto : IDoubleWayDto
+    public class Update<#= EntityName #>Dto :EntityDto, IDoubleWayDto
        {
 <#
     foreach (MetaColumnInfo column in DtoMetaTable.Columns) {

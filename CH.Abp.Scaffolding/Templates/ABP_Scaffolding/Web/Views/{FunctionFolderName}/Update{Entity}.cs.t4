@@ -24,7 +24,8 @@
 	 var moduleName = ToCamelCase(ModuleName);
 #>
 @using System.Web.Optimization
-@model <#= ModuleNamespace #>.Dto.Create<#= EntityName #>Output
+@using CH.Spartan.Web.Models
+@model <#= ModuleNamespace #>.Dto.Update<#= EntityName #>Output
 @section scripts
 {
     @Scripts.Render("~/scripts/plugins/validation")
@@ -69,8 +70,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
                     <div class="col-sm-8">
-<#                      WriteColControl(column, ""); #>
-                        <span class="help-inline"></span>
+<#                      WriteColControl(column, "",EntityName); #>
                     </div>
                 </div>
 <# }#>

@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 
-namespace <#= ModuleNamespace #>
+namespace <#= ModuleNamespace #>.Repositories
 {
     public interface I<#= EntityName #>Repository : IRepository<<#= EntityName #>>
     {
