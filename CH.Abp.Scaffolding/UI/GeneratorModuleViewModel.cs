@@ -240,6 +240,26 @@ namespace CH.Abp.Scaffolding.UI
             }
         }
 
+
+        private string _MenuName = "";
+
+        /// <summary>
+        /// 表单控件分两列布局
+        /// </summary>
+        public string MenuName
+        {
+            get { return _MenuName; }
+            set
+            {
+                if (value == _MenuName)
+                {
+                    return;
+                }
+                _MenuName = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// 允许批量删除
         /// </summary>

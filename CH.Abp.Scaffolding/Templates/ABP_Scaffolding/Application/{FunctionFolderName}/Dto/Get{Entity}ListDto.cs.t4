@@ -21,14 +21,9 @@
 	 var moduleName = ToCamelCase(ModuleName);
 #>
 <#@ output extension="cs" #>
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
-using CH.Spartan.Commons.Dto;
+using CH.Spartan.Commons;
 
 namespace <#= ModuleNamespace #>.Dto
 {
@@ -65,7 +60,7 @@ namespace <#= ModuleNamespace #>.Dto
 <#
     }
 #>
-
+}
 
     public class Get<#= EntityName #>ListInput : QueryListResultRequestInput
     {

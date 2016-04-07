@@ -23,14 +23,13 @@
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);
 #>
-@model <#= EntityName #>Dto
 @using System.Web.Optimization
-@model <#= ModuleName #>.Dto.Create<#= EntityName #>Output
+@model <#= ModuleNamespace #>.Dto.Create<#= EntityName #>Output
 @section scripts
 {
     @Scripts.Render("~/scripts/plugins/validation")
     <script type="text/javascript">
-        var from = $("#myform");
+        var from = $("#form");
         (function ($) {
             if (!$) {
                 return;
@@ -45,14 +44,14 @@
                         url: "/<#= EntityName #>/Create<#= EntityName #>",
                         data: JSON.stringify(data)
                     }).done(function (result) {
-                        abp.notify.success("@L("添加")@L("成功")");
-						abp.ui.close();
+                        abp.message.success("@L("添加成功")");
+                        abp.dialog.close();
                     });
                 }
             });
         })(jQuery);
 
-        function saveData() {
+        function submitForm() {
             from.submit();
         }
     </script>
@@ -60,60 +59,20 @@
 
 <div class="ibox float-e-margins animated lightSpeedIn">
     <div class="ibox-content">
-            <form id="myform" method="post">
-        <div class="container form-horizontal padding-top-30">
-<#
-    if (DtoMetaTable.Columns.Count >= 10)
-    {
-#>
-            <!--<div class="alert alert-info fs16 bold mt10">分节标题</div>-->
-<#  } #>
-            <div class="clearfix">
+            <form class="form-horizontal m-t" id="form">
 <#
     foreach (MetaColumnInfo column in DtoMetaTable.Columns) 
     {
-        if (!column.IsDtoVisible) continue;
-        if (GenerateTwoCol)  //两栏布局
-        {
-            if (IsFullWidthCol(column))  //整行宽度的列(Textarea、TextEditor)
-            {
+        if (!column.IsDtoVisible) continue;     
 #>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label class="col-sm-3 colspan-xs-3 control-label"><#= column.DisplayName #>：</label>
-                        <div class="col-sm-8 colspan-xs-8 clearfix">
-<#                          WriteColControl(column, "    "); #>
-                        </div>
-                    </div>
-                </div>
-<#          }
-            else
-            { #>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"><#= column.DisplayName #>：</label>
-                        <div class="col-sm-8">
-<#                          WriteColControl(column, "    "); #>
-                            <span class="help-inline"></span>
-                        </div>
-                    </div>
-                </div>
-<#          }
-        }
-        else
-        { #>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label"><#= column.DisplayName #>：</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
+                    <div class="col-sm-8">
 <#                      WriteColControl(column, ""); #>
                         <span class="help-inline"></span>
                     </div>
                 </div>
-<#      }
-    }
-#>
-            </div>
-        </div>
+<# }#>
     </form>
     </div>
 </div>

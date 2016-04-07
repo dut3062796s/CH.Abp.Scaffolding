@@ -42,7 +42,7 @@
 
     public string GetFormControlLabel(MetaColumnInfo col)
     {
-        var lbl = col.DisplayName + "：";
+        var lbl = col.DisplayName;
         if (col.Required)
             lbl += "<span class=\"asterisk\">*</span>";
         return lbl;

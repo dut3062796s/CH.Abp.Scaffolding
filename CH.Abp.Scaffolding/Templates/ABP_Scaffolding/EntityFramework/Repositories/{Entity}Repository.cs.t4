@@ -26,7 +26,7 @@ using <#= ModuleNamespace #>;
 
 namespace CH.Spartan.EntityFramework.Repositories
 {
-    public class <#= EntityName #>Repository : <#= ProjectName #>RepositoryBase, I<#= EntityName #>Repository
+    public class <#= EntityName #>Repository : <#= ProjectName #>RepositoryBase<<#= EntityName #>>, I<#= EntityName #>Repository
     {
         public <#= EntityName #>Repository(IDbContextProvider<<#= ProjectName #>DbContext> dbContextProvider)
             : base(dbContextProvider)

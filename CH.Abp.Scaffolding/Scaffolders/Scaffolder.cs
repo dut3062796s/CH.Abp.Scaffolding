@@ -97,6 +97,7 @@ namespace CH.Abp.Scaffolding.Scaffolders
             var functionFolderName = _moduleViewModel.FunctionFolderName;
             var isDisplayOrderable = IsDisplayOrderable(entity);
             var overwrite = _moduleViewModel.OverwriteFiles;
+            var menuName = _moduleViewModel.MenuName;
             var generateTwoCol = _moduleViewModel.GenerateTwoCol;
 
             Dictionary<string, object> templateParams = new Dictionary<string, object>()
@@ -113,7 +114,9 @@ namespace CH.Abp.Scaffolding.Scaffolders
                 ,
                 {"ProjectName", projectName}
                 ,
-                {"FunctionName", functionName}
+                {"FunctionName", functionName},
+
+                {"MenuName", menuName}
                 ,
                 {"FunctionFolderName", functionFolderName}
                 ,
@@ -165,29 +168,6 @@ namespace CH.Abp.Scaffolding.Scaffolders
                     // ignored
                 }
             }
-
-            //templates = new[]
-            //{
-            //    @"Areas\{Module}\Controllers\{Entity}Controller"
-            //    , @"Areas\{Module}\Views\{Entity}\{Entity}"
-            //    , @"Areas\{Module}\Views\{Entity}\Update{Entity}"
-            //    , @"Areas\{Module}\Views\{Entity}\Create{Entity}"
-            //};
-
-            //foreach (var template in templates)
-            //{
-            //    string outputPath = Path.Combine(@"_Areas\",
-            //        template.Replace("{Module}", moduleName).Replace("{Entity}", entityName));
-
-            //    try
-            //    {
-            //        AddFileFromTemplate(project, outputPath, template, templateParams, true);
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        // ignored
-            //    }
-            //}
         }
 
         private void WriteLog(string str)

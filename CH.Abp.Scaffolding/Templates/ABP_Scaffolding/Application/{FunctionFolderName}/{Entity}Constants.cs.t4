@@ -12,6 +12,7 @@
 <#@ parameter type="System.String" name="EntityName" #>
 <#@ parameter type="System.String" name="FunctionName" #>
 <#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.String" name="MenuName" #>
 <#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
 <#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
@@ -20,30 +21,39 @@
 <#
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);
+     var menuNames = ToCamelCase(MenuName);
+	 var menuName= menuNames.Substring(0, MenuName.Length - 1);
 #>
 
         /*
 
 		TODO:★请将以下内容剪切到 PermissionNames
-        public const string <#= ModuleName #>_<#= EntityName #> = "<#= ModuleName #>.<#= EntityName #>";
-        public const string <#= ModuleName #>_<#= EntityName #>_Create = "<#= ModuleName #>.<#= EntityName #>.Create";
-        public const string <#= ModuleName #>_<#= EntityName #>_Update = "<#= ModuleName #>.<#= EntityName #>.Update";
-        public const string <#= ModuleName #>_<#= EntityName #>_Delete = "<#= ModuleName #>.<#= EntityName #>.Delete";
+        public const string <#= MenuName #>_<#= EntityName #> = "<#= MenuName #>.<#= EntityName #>";
+        public const string <#= MenuName #>_<#= EntityName #>_Create = "<#= MenuName #>.<#= EntityName #>.Create";
+        public const string <#= MenuName #>_<#= EntityName #>_Update = "<#= MenuName #>.<#= EntityName #>.Update";
+        public const string <#= MenuName #>_<#= EntityName #>_Delete = "<#= MenuName #>.<#= EntityName #>.Delete";
 
 		TODO:★请将以下内容剪切到 AuthorizationProvider
          //<#= FunctionName #>
-		 var <#= moduleName #> = context.GetPermissionOrNull(PermissionNames.<#= ModuleName #>_<#= EntityName #>);
-         if (<#= moduleName #> == null)
-         {
-             <#= moduleName #> = context.CreatePermission(PermissionNames.<#= ModuleName #>_<#= EntityName #>, L("<#= FunctionName #>"), multiTenancySides: MultiTenancySides.Tenant);
-         }
-        
-         <#= moduleName #>.CreateChildPermission(PermissionNames.<#= ModuleName #>_<#= EntityName #>_Create, L("添加"));
-         <#= moduleName #>.CreateChildPermission(PermissionNames.<#= ModuleName #>_<#= EntityName #>_Update, L("修改"));
-         <#= moduleName #>.CreateChildPermission(PermissionNames.<#= ModuleName #>_<#= EntityName #>_Delete, L("删除"));
+		  var <#= menuName #><#= EntityName #>s = <#= menuNames #>.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>);
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Create, L("添加"));
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Update, L("修改"));
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete, L("删除"));
 
 		 TODO:★请将以下内容剪切到Web站点Spartan.xml
 		  //<#= FunctionName #>
 	     <text name="<#= FunctionName #>" value="<#= FunctionName #>" />
+<#
+    foreach (MetaColumnInfo column in DtoMetaTable.Columns) {
+        if (!column.IsDtoVisible) continue;
+#>
+<#
+        if (column.DisplayName != column.Name){
+#>
+        <text name="<#= column.DisplayName #>" value="<#= column.DisplayName #>" />
+<#
+        }
+ }
+#>
 
 		*/

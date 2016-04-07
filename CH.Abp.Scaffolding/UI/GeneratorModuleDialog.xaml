@@ -66,6 +66,9 @@
                 <Label Content="功能中文名称：" 
 					Target="{Binding ElementName=functionName}" />
                 <TextBox  x:Name="functionName" Text="{Binding FunctionName}"  Margin="5,0,0,10" HorizontalContentAlignment="Stretch" />
+                <Label Content="菜单名字：" 
+					Target="{Binding ElementName=menuName}" />
+                <TextBox  x:Name="menuName" Text="{Binding MenuName}"  Margin="5,0,0,10" HorizontalContentAlignment="Stretch" />
                 <Label Content="存放文件夹：" 
 					Target="{Binding ElementName=functionGroupName}" />
                 <TextBox  x:Name="functionFolderName" Text="{Binding FunctionFolderName}"  Margin="5,0,0,10" HorizontalContentAlignment="Stretch" />
