@@ -70,7 +70,6 @@
                     <label class="col-sm-3 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
                     <div class="col-sm-8">
 <#                      WriteColControl(column, "",EntityName); #>
-                        <span class="help-inline"></span>
                     </div>
                 </div>
 <# }#>

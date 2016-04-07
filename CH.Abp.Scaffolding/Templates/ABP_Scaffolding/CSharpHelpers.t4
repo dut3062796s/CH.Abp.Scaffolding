@@ -114,11 +114,11 @@
 <#+     } else if (column.ControlType == euControlType.Hidden) { #>
 <#= indent #>                        <input class="<#= GetFormControlCssClass(column) #>" type="hidden" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
 <#+     } else if (column.ControlType == euControlType.DateTimePicker) { #>
-<#= indent #>                       <input class="form-control inline w300<#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
+<#= indent #>                       <input class="form-control <#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
 <#+     } else if (column.ControlType == euControlType.DatePicker) { #>
-<#= indent #>                        <input class="form-control inline w300<#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
+<#= indent #>                        <input class="form-control <#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
 <#+     } else { #>
-<#= indent #>                        <input class="form-control inline w300<#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
+<#= indent #>                        <input class="form-control <#= GetFormControlCssClass(column) #>" type="text" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
 <#+
         }
     }
