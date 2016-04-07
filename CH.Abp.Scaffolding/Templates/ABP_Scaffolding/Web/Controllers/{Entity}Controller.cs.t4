@@ -90,9 +90,9 @@ namespace <#= ProjectNamespace #>.Controllers
         #region 更新
         [HttpGet]
         [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Update)]
-        public ActionResult Update<#= EntityName #>(IdInput input)
+        public Task<ActionResult> Update<#= EntityName #>(IdInput input)
         {
-            var result = _<#= entityName #>AppService.GetUpdate<#= EntityName #>Async(input);
+            var result = await _<#= entityName #>AppService.GetUpdate<#= EntityName #>Async(input);
             return View(result);
         }
 
