@@ -43,7 +43,7 @@ namespace <#= ModuleNamespace #>
 	
     public class <#= EntityName #>AppService : <#= ProjectName #>AppServiceBase, I<#= EntityName #>AppService
     {
-        public readonly I<#= EntityName #>Repository _<#= entityName #>Repository;
+        private readonly I<#= EntityName #>Repository _<#= entityName #>Repository;
         public <#= EntityName #>AppService(I<#= EntityName #>Repository <#= entityName #>Repository)
         {
             _<#= entityName #>Repository = <#= entityName #>Repository;
@@ -89,12 +89,16 @@ namespace <#= ModuleNamespace #>
 
 		public async Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
         {
-            return new Update<#= EntityName #>Output((await _<#= entityName #>Repository.GetAsync(input.Id)).MapTo<Update<#= EntityName #>Dto>());
+            var result = await _<#= entityName #>Repository.GetAsync(input.Id);
+            return new Update<#= EntityName #>Output(result.MapTo<<#= EntityName #>Dto>());
         }
 
         public async Task Delete<#= EntityName #>Async(List<IdInput> input)
         {
-            await _<#= entityName #>Repository.DeleteAsync(p => p.Id.IsIn(input.Select(o => o.Id).ToArray()));
+            foreach (var item in input)
+            {
+                await _<#= entityName #>Repository.DeleteAsync(item.Id);
+            }
         }
         
     }

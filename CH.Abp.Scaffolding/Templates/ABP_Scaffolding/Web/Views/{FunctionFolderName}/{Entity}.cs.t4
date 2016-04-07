@@ -147,7 +147,7 @@
 					var rows = $("#table").bootstrapTable("getSelections");
 					var ids = [];
 					$.each(rows,function(index, item) {
-						ids.push(item.id);
+						ids.push({ id: item.id });
 					});
 					del(ids);
 				});
@@ -194,6 +194,7 @@
                             <tr>
 							 <th data-field="state" data-checkbox="true"></th>
                                 <th data-field="id" data-sortable="true" data-width="50">@L("编号")</th>
+                                      <th data-field="op" data-formatter="formatterOp" data-width="60">@L("操作")</th>
 							<#
     foreach (MetaColumnInfo column in DtoMetaTable.Columns) {
 #>

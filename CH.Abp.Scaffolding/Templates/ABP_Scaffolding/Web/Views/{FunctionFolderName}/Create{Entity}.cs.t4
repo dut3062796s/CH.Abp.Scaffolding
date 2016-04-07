@@ -28,7 +28,7 @@
 @model <#= ModuleNamespace #>.Dto.Create<#= EntityName #>Output
 @section scripts
 {
-    @Scripts.Render("~/scripts/plugins/validation")
+    @Scripts.Render("~/scripts/plugins/edit")
     <script type="text/javascript">
         var from = $("#form");
         (function ($) {
