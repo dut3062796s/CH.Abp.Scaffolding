@@ -85,7 +85,7 @@ namespace <#= ModuleNamespace #>
 		public async Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
         {
             var result = await _<#= entityName #>Manager.Store.FindByIdAsync(input.Id);
-            return new Update<#= EntityName #>Output(result.MapTo<<#= EntityName #>Dto>());
+            return new Update<#= EntityName #>Output(result.MapTo<Update<#= EntityName #>Dto>());
         }
 
         public async Task Delete<#= EntityName #>Async(List<IdInput> input)

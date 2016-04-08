@@ -25,6 +25,7 @@
 <#
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);
+	 var menuName2= MenuName.Substring(0, MenuName.Length - 1);
 #>
 @using CH.Spartan.Authorization
 @using System.Web.Optimization
@@ -55,11 +56,11 @@
 		
 				 //添加
         function create() {
-            abp.dialog.open("/<#= EntityName #>/Create<#= EntityName #>", "@L("添加<#= FunctionName #>")", {
+            abp.dialog.open("/<#= menuName2 #>/Create<#= EntityName #>", "@L("添加<#= FunctionName #>")", {
                  <# if (GenerateTwoCol) { #>
-              area: ["775px", "80%"],
+              	area: ["775px", "80%"],
 			<# } else { #>
-			  area: ["675px", "80%"],
+			  	area: ["675px", "80%"],
 			<# } #>
                 //area: ["675px", "80%"],
                 //area: ["775px", "80%"],
@@ -82,7 +83,7 @@
           
 				//更新
         function update(id) {
-            abp.dialog.open("/<#= EntityName #>/Update<#= EntityName #>?id=" + id, "@L("修改<#= FunctionName #>")", {
+            abp.dialog.open("/<#= menuName2 #>/Update<#= EntityName #>?id=" + id, "@L("修改<#= FunctionName #>")", {
            <# if (GenerateTwoCol) { #>
               area: ["775px", "80%"],
             <# } else { #>
@@ -116,7 +117,7 @@
             abp.message.confirm("@L("确定删除")?", function(yes) {
                 if (!yes) return;
                 abp.ajax({
-                    url: "/<#= EntityName #>/Delete<#= EntityName #>",
+                    url: "/<#= menuName2 #>/Delete<#= EntityName #>",
                     data: JSON.stringify(ids)
                 }).done(function (result) {
                     abp.notify.success("@L("删除成功")");
@@ -196,7 +197,7 @@
                     </div>
                     <table id="table"
                            data-toggle="table"
-                           data-url="/<#= EntityName #>/Search<#= EntityName #>"
+                           data-url="/<#= menuName2 #>/Search<#= EntityName #>"
                            data-toolbar="#tableToolbar"
                            data-height="550"
                            data-show-export="true">

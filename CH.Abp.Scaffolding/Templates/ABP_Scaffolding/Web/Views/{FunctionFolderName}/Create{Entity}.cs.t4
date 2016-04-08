@@ -16,12 +16,14 @@
 <#@ parameter type="System.Boolean" name="AllowBatchDelete" #>
 <#@ parameter type="System.Boolean" name="IsDisplayOrderable" #>
 <#@ parameter type="System.String" name="ProjectName" #>
+<#@ parameter type="System.String" name="MenuName" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
 <#@ Include File="../../../CSharpHelpers.t4" #>
 <#@ output extension="cshtml" #>
 <#
     var entityName = ToCamelCase(EntityName);
      var moduleName = ToCamelCase(ModuleName);
+     var menuName2= MenuName.Substring(0, MenuName.Length - 1);
 #>
 @using System.Web.Optimization
 @using CH.Spartan.Web.Models
@@ -42,7 +44,7 @@
                         <#= entityName #>: abp.utils.getFormData(form)
                     };
                     abp.ajax({
-                        url: "/<#= EntityName #>/Create<#= EntityName #>",
+                        url: "/<#= menuName2 #>/Create<#= EntityName #>",
                         data: JSON.stringify(data)
                     }).done(function (result) {
                         abp.message.success("@L("添加成功")");

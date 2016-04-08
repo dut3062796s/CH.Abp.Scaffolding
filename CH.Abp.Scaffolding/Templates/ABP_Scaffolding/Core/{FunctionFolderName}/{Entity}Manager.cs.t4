@@ -7,8 +7,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ import namespace="CH.Abp.Scaffolding.Models" #>
-
-
 <#@ parameter type="System.String" name="ProjectNamespace" #>
 <#@ parameter type="System.String" name="ModuleNamespace" #>
 <#@ parameter type="System.String" name="ModuleName" #>
@@ -21,7 +19,7 @@
 <#@ parameter type="System.String" name="ProjectName" #>
 <#@ parameter type="CH.Abp.Scaffolding.Models.MetaTableInfo" name="DtoMetaTable" #>
 <#@ Include File="../../CSharpHelpers.t4" #>
-<#@ output extension="cshtml" #>
+<#@ output extension="cs" #>
 <#
     var entityName = ToCamelCase(EntityName);
 	 var moduleName = ToCamelCase(ModuleName);
