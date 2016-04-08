@@ -117,6 +117,12 @@
     <Compile Include="Utils\StorageMan.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
+    <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\{Entity}Store.cs.t4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\{Entity}Manager.cs.t4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\ABP_Scaffolding\Web\Controllers\{Entity}Controller.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -148,12 +154,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Templates\ABP_Scaffolding\Application\{FunctionFolderName}\{Entity}Constants.cs.t4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\Repositories\I{Entity}Repository.cs.t4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Templates\ABP_Scaffolding\EntityFramework\Repositories\{Entity}Repository.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
