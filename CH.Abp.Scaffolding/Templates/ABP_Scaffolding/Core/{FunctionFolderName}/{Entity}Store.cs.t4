@@ -31,14 +31,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
-using Abp.Store;
+using CH.Spartan.Repositories;
 
 namespace <#= ModuleNamespace #>
 {
-   public class <#= EntityName #>Store:AbpStore<<#= EntityName #>>
+   public class <#= EntityName #>Store:<#= ProjectName #>StoreBase<<#= EntityName #>>
    {
        public <#= EntityName #>Store(
-           IRepository<<#= EntityName #>> <#= entityName #>Repository, 
+           I<#= ProjectName #>RepositoryBase<<#= EntityName #>> <#= entityName #>Repository, 
            IUnitOfWorkManager unitOfWorkManager) 
             : base(<#= entityName #>Repository, unitOfWorkManager)
        {

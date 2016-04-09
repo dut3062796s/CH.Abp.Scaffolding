@@ -51,7 +51,7 @@ namespace <#= ProjectNamespace #>.Controllers
         #region <#= FunctionName #>
 
         #region 首页
-        [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>)]
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
         public ActionResult <#= EntityName #>()
         {
             return View();
@@ -61,7 +61,7 @@ namespace <#= ProjectNamespace #>.Controllers
         #region 搜索
 
         [HttpGet]
-         [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>)]
+         [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
         public async Task<JsonResult> Search<#= EntityName #>(Get<#= EntityName #>ListPagedInput input)
         {
             var result = await _<#= entityName #>AppService.Get<#= EntityName #>ListPagedAsync(input);
@@ -71,7 +71,7 @@ namespace <#= ProjectNamespace #>.Controllers
 
         #region 添加
         [HttpGet]
-        [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Create)]
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Create)]
         public ActionResult Create<#= EntityName #>()
         {
             var result = _<#= entityName #>AppService.GetNew<#= EntityName #>();
@@ -79,7 +79,7 @@ namespace <#= ProjectNamespace #>.Controllers
         }
 
         [HttpPost]
-       [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Create)]
+       [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Create)]
         public async Task<JsonResult> Create<#= EntityName #>(Create<#= EntityName #>Input input)
         {
             await _<#= entityName #>AppService.Create<#= EntityName #>Async(input);
@@ -89,7 +89,7 @@ namespace <#= ProjectNamespace #>.Controllers
 
         #region 更新
         [HttpGet]
-        [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Update)]
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Update)]
         public async Task<ActionResult> Update<#= EntityName #>(IdInput input)
         {
             var result = await _<#= entityName #>AppService.GetUpdate<#= EntityName #>Async(input);
@@ -97,7 +97,7 @@ namespace <#= ProjectNamespace #>.Controllers
         }
 
         [HttpPost]
-        [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Update)]
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Update)]
         public async Task<JsonResult> Update<#= EntityName #>(Update<#= EntityName #>Input input)
         {
             await _<#= entityName #>AppService.Update<#= EntityName #>Async(input);
@@ -107,7 +107,7 @@ namespace <#= ProjectNamespace #>.Controllers
 
         #region 删除
         [HttpPost]
-         [AbpMvcAuthorize(PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete)]
+         [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete)]
         public async Task<JsonResult> Delete<#= EntityName #>(List<IdInput> input)
         {
             await _<#= entityName #>AppService.Delete<#= EntityName #>Async(input);

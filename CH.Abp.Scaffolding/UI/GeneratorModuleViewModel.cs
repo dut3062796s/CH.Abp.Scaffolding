@@ -454,7 +454,10 @@ namespace CH.Abp.Scaffolding.UI
                 codeType.IsDerivedType("Abp.Domain.Entities.Entity")
                 || codeType.IsDerivedType("Abp.Domain.Entities.Auditing.AuditedEntity")
                 || codeType.IsDerivedType("Abp.Domain.Entities.Auditing.CreationAuditedEntity")
-                || codeType.IsDerivedType("Abp.Domain.Entities.Auditing.FullAuditedEntity");
+                || codeType.IsDerivedType("Abp.Domain.Entities.Auditing.FullAuditedEntity")
+                || codeType.IsDerivedType("Abp.Authorization.Users.AbpUserBase")
+                || codeType.IsDerivedType("Abp.Authorization.Roles.AbpRoleBase")
+                || codeType.IsDerivedType("Abp.Domain.Entities.IPassivable");
         }
 
         private bool IsAbstract(CodeType codeType)

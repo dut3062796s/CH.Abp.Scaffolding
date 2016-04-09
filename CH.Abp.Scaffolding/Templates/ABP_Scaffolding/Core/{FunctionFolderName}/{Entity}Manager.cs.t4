@@ -32,13 +32,12 @@ using System.Threading.Tasks;
 using Abp.Configuration;
 using Abp.Dependency;
 using Abp.Domain.Uow;
-using Abp.Manager;
 using Abp.Runtime.Caching;
-using Abp.Store;
+using CH.Spartan.Domain;
 
 namespace <#= ModuleNamespace #>
 {
-    public class <#= EntityName #>Manager : AbpManager<<#= EntityName #>>
+    public class <#= EntityName #>Manager : <#= ProjectName #>ManagerBase<<#= EntityName #>>
     {
         public <#= EntityName #>Manager(
             <#= EntityName #>Store <#= entityName #>Store, 

@@ -21,6 +21,7 @@
 	 var moduleName = ToCamelCase(ModuleName);
 #>
 <#@ output extension="cs" #>
+using System;
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 using Abp.AutoMapper;

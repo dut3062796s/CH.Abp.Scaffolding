@@ -7,8 +7,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="Microsoft.AspNet.Scaffolding.Core.Metadata" #>
 <#@ import namespace="CH.Abp.Scaffolding.Models" #>
-
-
 <#@ parameter type="System.String" name="ProjectNamespace" #>
 <#@ parameter type="System.String" name="ModuleNamespace" #>
 <#@ parameter type="System.String" name="ModuleName" #>
@@ -27,8 +25,6 @@
 	 var moduleName = ToCamelCase(ModuleName);
 	 var menuName2= MenuName.Substring(0, MenuName.Length - 1);
 #>
-@using CH.Spartan.Authorization
-@using System.Web.Optimization
 @section styles
 {
     @Styles.Render("~/styles/plugins/list")
@@ -41,11 +37,11 @@
         function formatterOp(value, row, index) {
             var edit="";
 			var del="";
-			if(abp.auth.isGranted("@PermissionNames.<#= MenuName #>_<#= EntityName #>_Update"))
+			if(abp.auth.isGranted("@<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Update"))
 			{
 				edit = '<i class="btn-op fa fa-edit" title="@L("修改")" onclick="update(\'' + row.id + '\')"></i>';
 			}
-			if(abp.auth.isGranted("@PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete"))
+			if(abp.auth.isGranted("@<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete"))
 			{
 				del = '<i class="btn-op fa fa-trash-o" title="@L("删除")" onclick="del(\'' + row.id + '\')"></i>';
 			}
@@ -186,11 +182,11 @@
                 </div>
                 <div class="ibox-content list-content">
                     <div class="btn-group hidden-xs" id="tableToolbar" role="group">
-						@if (IsGranted(PermissionNames.<#= MenuName #>_<#= EntityName #>_Create))
+						@if (IsGranted(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Create))
 						{
 							<button type="button" class="btn btn-outline btn-default" id="btn-add"><i class="fa fa-plus" aria-hidden="true"></i></button>
 						}
-						@if (IsGranted(PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete))
+						@if (IsGranted(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete))
 						{
 							 <button type="button" class="btn btn-outline btn-default" id="btn-del"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 						}
