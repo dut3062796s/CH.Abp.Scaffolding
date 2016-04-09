@@ -37,7 +37,7 @@ using CH.Spartan.Domain;
 
 namespace <#= ModuleNamespace #>
 {
-    public class <#= EntityName #>Manager : <#= ProjectName #>ManagerBase<<#= EntityName #>>
+    public class <#= EntityName #>Manager : ManagerBase<<#= EntityName #>>
     {
         public <#= EntityName #>Manager(
             <#= EntityName #>Store <#= entityName #>Store, 

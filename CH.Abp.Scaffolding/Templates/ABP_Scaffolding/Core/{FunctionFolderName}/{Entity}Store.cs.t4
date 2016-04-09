@@ -35,10 +35,10 @@ using CH.Spartan.Repositories;
 
 namespace <#= ModuleNamespace #>
 {
-   public class <#= EntityName #>Store:<#= ProjectName #>StoreBase<<#= EntityName #>>
+   public class <#= EntityName #>Store:StoreBase<<#= EntityName #>>
    {
        public <#= EntityName #>Store(
-           I<#= ProjectName #>RepositoryBase<<#= EntityName #>> <#= entityName #>Repository, 
+           IRepository<<#= EntityName #>> <#= entityName #>Repository, 
            IUnitOfWorkManager unitOfWorkManager) 
             : base(<#= entityName #>Repository, unitOfWorkManager)
        {
