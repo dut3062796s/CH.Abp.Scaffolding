@@ -30,7 +30,7 @@ using CH.Spartan.Commons;
 namespace <#= ModuleNamespace #>.Dto
 {
     [AutoMapFrom(typeof(<#= EntityName #>))]
-    public class Get<#= EntityName #>ListDto : EntityDto
+    public class Get<#= EntityName #>ListDto : AuditedEntityDto
           {
 <#
     foreach (MetaColumnInfo column in DtoMetaTable.Columns) {

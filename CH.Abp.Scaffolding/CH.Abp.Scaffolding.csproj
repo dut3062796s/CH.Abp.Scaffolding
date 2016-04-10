@@ -117,9 +117,6 @@
     <Compile Include="Utils\StorageMan.cs" />
     <Compile Include="Utils\VisualStudioUtils.cs" />
     <Compile Include="VsConstants.cs" />
-    <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\{Entity}Store.cs.t4">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Templates\ABP_Scaffolding\Core\{FunctionFolderName}\{Entity}Manager.cs.t4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

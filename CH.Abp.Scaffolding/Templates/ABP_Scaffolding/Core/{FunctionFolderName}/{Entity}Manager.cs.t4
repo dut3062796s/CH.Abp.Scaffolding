@@ -40,12 +40,12 @@ namespace <#= ModuleNamespace #>
     public class <#= EntityName #>Manager : ManagerBase<<#= EntityName #>>
     {
         public <#= EntityName #>Manager(
-            <#= EntityName #>Store <#= entityName #>Store, 
+            IRepository<<#= EntityName #>> <#= entityName #>Repository, 
             ISettingManager settingManager, 
             ICacheManager cacheManager, 
             IIocResolver iocResolver, 
             IUnitOfWorkManager unitOfWorkManager) 
-			: base(<#= entityName #>Store, settingManager, cacheManager, iocResolver, unitOfWorkManager)
+			: base(<#= entityName #>Repository, settingManager, cacheManager, iocResolver, unitOfWorkManager)
         {
         }
     }

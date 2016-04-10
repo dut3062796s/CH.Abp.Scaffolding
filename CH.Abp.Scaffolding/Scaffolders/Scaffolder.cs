@@ -138,7 +138,6 @@ namespace CH.Abp.Scaffolding.Scaffolders
                 , @"Application\{FunctionFolderName}\{Entity}AppService"
                 , @"Application\{FunctionFolderName}\{Entity}Constants"
                 , @"Core\{FunctionFolderName}\{Entity}Manager"
-                , @"Core\{FunctionFolderName}\{Entity}Store"
                 , @"EntityFramework\Repositories\{Entity}Repository"
                 , @"Web\Controllers\{Entity}Controller"
                 , @"Web\Views\{FunctionFolderName}\{Entity}"
