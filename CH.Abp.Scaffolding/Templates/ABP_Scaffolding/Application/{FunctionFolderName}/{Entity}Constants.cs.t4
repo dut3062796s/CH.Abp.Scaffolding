@@ -27,7 +27,7 @@
 
         /*
 
-		TODO:★请将以下内容剪切到 PermissionNames
+		TODO:★请将以下内容剪切到 SpartanPermissionNames
         public const string <#= MenuName #>_<#= EntityName #> = "<#= MenuName #>.<#= EntityName #>";
         public const string <#= MenuName #>_<#= EntityName #>_Create = "<#= MenuName #>.<#= EntityName #>.Create";
         public const string <#= MenuName #>_<#= EntityName #>_Update = "<#= MenuName #>.<#= EntityName #>.Update";
@@ -35,10 +35,10 @@
 
 		TODO:★请将以下内容剪切到 AuthorizationProvider
          //<#= FunctionName #>
-		  var <#= menuName #><#= EntityName #>s = <#= menuNames #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>);
-         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Create, L("添加"));
-         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Update, L("修改"));
-         <#= menuName #><#= EntityName #>s.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>_Delete, L("删除"));
+		  var <#= menuName #><#= EntityName #>s = <#= menuNames #>.CreateChildPermission(PermissionNames.<#= MenuName #>_<#= EntityName #>);
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(SpartanPermissionNames.<#= MenuName #>_<#= EntityName #>_Create, L("添加"));
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(SpartanPermissionNames.<#= MenuName #>_<#= EntityName #>_Update, L("修改"));
+         <#= menuName #><#= EntityName #>s.CreateChildPermission(SpartanPermissionNames.<#= MenuName #>_<#= EntityName #>_Delete, L("删除"));
 
 		 TODO:★请将以下内容剪切到Web站点Spartan.xml
 		  //<#= FunctionName #>
