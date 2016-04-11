@@ -37,7 +37,7 @@ using CH.Spartan.Domain;
 
 namespace <#= ModuleNamespace #>
 {
-    public class <#= EntityName #>Manager : ManagerBase<<#= EntityName #>>
+    public class <#= EntityName #>Manager : ManagerBase
     {
         private readonly IRepository<<#= EntityName #>> _<#= entityName #>Repository;
         public <#= EntityName #>Manager(
@@ -46,7 +46,7 @@ namespace <#= ModuleNamespace #>
             ICacheManager cacheManager, 
             IIocResolver iocResolver, 
             IUnitOfWorkManager unitOfWorkManager) 
-			: base(<#= entityName #>Repository, settingManager, cacheManager, iocResolver, unitOfWorkManager)
+			: base(settingManager, cacheManager, iocResolver, unitOfWorkManager)
         {
             _<#= entityName #>Repository=<#= entityName #>Repository;
         }
