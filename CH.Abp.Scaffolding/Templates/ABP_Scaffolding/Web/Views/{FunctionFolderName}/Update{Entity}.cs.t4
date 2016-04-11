@@ -58,7 +58,7 @@
     </script>
 }
 
-<div class="ibox float-e-margins animated lightSpeedIn">
+<div class="ibox float-e-margins @(SpartanConsts.DefaultAnimate) edit">
    <form class="form-horizontal" id="form">
     <input name="Id" class="form-control" type="hidden" value="@Model.<#= EntityName #>.Id">
     <div class="ibox-content">

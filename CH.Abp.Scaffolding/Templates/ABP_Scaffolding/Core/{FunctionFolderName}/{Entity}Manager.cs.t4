@@ -39,6 +39,7 @@ namespace <#= ModuleNamespace #>
 {
     public class <#= EntityName #>Manager : ManagerBase<<#= EntityName #>>
     {
+        private readonly IRepository<<#= EntityName #>> _<#= entityName #>Repository;
         public <#= EntityName #>Manager(
             IRepository<<#= EntityName #>> <#= entityName #>Repository, 
             ISettingManager settingManager, 
@@ -47,6 +48,15 @@ namespace <#= ModuleNamespace #>
             IUnitOfWorkManager unitOfWorkManager) 
 			: base(<#= entityName #>Repository, settingManager, cacheManager, iocResolver, unitOfWorkManager)
         {
+            _<#= entityName #>Repository=<#= entityName #>Repository;
+        }
+
+        public async Task DeleteByIdsAsync(IEnumerable<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                await _<#= entityName #>Repository.DeleteAsync(id);
+            }
         }
     }
 }
