@@ -31,6 +31,13 @@ namespace <#= ModuleNamespace #>
 
     public interface I<#= EntityName #>AppService : IApplicationService
     {
+	    /// <summary>
+        /// 获取
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<Get<#= EntityName #>Output> Get<#= EntityName #>Async(IdInput input);
+
         /// <summary>
         /// 获取 <#= FunctionName #>
         /// </summary>

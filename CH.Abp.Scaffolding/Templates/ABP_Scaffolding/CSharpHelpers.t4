@@ -108,9 +108,9 @@
 <#+     } else if (column.ControlType == euControlType.TextEditor) { #>
 <#= indent #>                        <script type="text/plain" id="<#= column.Name #>Editor" name="<#= column.Name #>" class="input-xxlarge" style="height:240px;">@Html.Raw(Model.<#= entity #>.<#= column.Name #>)</script>
 <#+     } else if (column.ControlType == euControlType.DropdownList) { #>
-<#= indent #>                        <select name="<#= column.Name #>" id="<#= column.Name #>" class="form-control"> @Html.GetOptionHtmlBy"<#= column.Name #>(Model.<#= entity #>.<#= GetFormControlValue(column) #>)</select>
+<#= indent #>                        @Html.GetSelectByEnum(typeof(Enum<#= column.Name #>), "<#= column.Name #>","", Model.<#= entity #>.<#= column.Name #>)
 <#+     } else if (column.ControlType == euControlType.Checkbox) { #>
-<#= indent #>                         <select name="<#= column.Name #>" id="<#= column.Name #>" class="form-control"> @Html.GetOptionHtmlByEnable(Model.<#= entity #>.<#= GetFormControlValue(column) #>)</select>
+<#= indent #>                         @Html.GetSelectByEnable("<#= column.Name #>","", Model.<#= entity #>.<#= GetFormControlValue(column) #>,"")
 <#+     } else if (column.ControlType == euControlType.Hidden) { #>
 <#= indent #>                        <input class="<#= GetFormControlCssClass(column) #>" type="hidden" id="<#= column.Name #>" name="<#= column.Name #>"<#= GetFormControlMaxlength(column) #> value="@Model.<#= entity #>.<#= GetFormControlValue(column) #>" />
 <#+     } else if (column.ControlType == euControlType.DateTimePicker) { #>

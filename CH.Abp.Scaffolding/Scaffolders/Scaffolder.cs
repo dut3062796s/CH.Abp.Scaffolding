@@ -134,6 +134,7 @@ namespace CH.Abp.Scaffolding.Scaffolders
                 @"Application\{FunctionFolderName}\Dto\Create{Entity}Dto"
                 , @"Application\{FunctionFolderName}\Dto\Get{Entity}ListDto"
                 , @"Application\{FunctionFolderName}\Dto\Update{Entity}Dto"
+                , @"Application\{FunctionFolderName}\Dto\Get{Entity}Dto"
                 , @"Application\{FunctionFolderName}\I{Entity}AppService"
                 , @"Application\{FunctionFolderName}\{Entity}AppService"
                 , @"Application\{FunctionFolderName}\{Entity}Constants"
