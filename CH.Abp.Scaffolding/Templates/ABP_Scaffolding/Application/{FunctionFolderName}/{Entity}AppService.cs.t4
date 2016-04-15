@@ -48,14 +48,12 @@ namespace <#= ModuleNamespace #>
             _<#= entityName #>Manager = <#= entityName #>Manager;
         }
 
-		[DisableFilterIfHost]
 		public async Task<Get<#= EntityName #>Output> Get<#= EntityName #>Async(IdInput input)
         {
             var result = await _<#= entityName #>Repository.GetAsync(input.Id);
             return new Get<#= EntityName #>Output(result.MapTo<Get<#= EntityName #>Dto>());
         }
 
-		[DisableFilterIfHost]
         public async Task<ListResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListAsync(Get<#= EntityName #>ListInput input)
         {
             var list = await _<#= entityName #>Repository.GetAll()
@@ -65,7 +63,6 @@ namespace <#= ModuleNamespace #>
             return new ListResultOutput<Get<#= EntityName #>ListDto>(list.MapTo<List<Get<#= EntityName #>ListDto>>());
         }
 
-		[DisableFilterIfHost]
         public async Task<PagedResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListPagedAsync(Get<#= EntityName #>ListPagedInput input)
         {
             var query = _<#= entityName #>Repository.GetAll();
@@ -78,13 +75,11 @@ namespace <#= ModuleNamespace #>
             return new PagedResultOutput<Get<#= EntityName #>ListDto>(count, list.MapTo<List<Get<#= EntityName #>ListDto>>());
         }
 
-		[DisableFilterIfHost]
         public async Task Create<#= EntityName #>Async(Create<#= EntityName #>Input input)
         {
             var <#= entityName #> = input.<#= EntityName #>.MapTo<<#= EntityName #>>();
             await _<#= entityName #>Repository.InsertAsync(<#= entityName #>);
         }
-        [DisableFilterIfHost]
         public async Task Update<#= EntityName #>Async(Update<#= EntityName #>Input input)
         {
             var <#= entityName #> = await _<#= entityName #>Repository.GetAsync(input.<#= EntityName #>.Id);
@@ -96,14 +91,13 @@ namespace <#= ModuleNamespace #>
         {
             return new Create<#= EntityName #>Output(new Create<#= EntityName #>Dto());
         }
-		[DisableFilterIfHost]
+        
 		public async Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
         {
             var result = await _<#= entityName #>Repository.GetAsync(input.Id);
             return new Update<#= EntityName #>Output(result.MapTo<Update<#= EntityName #>Dto>());
         }
 
-		[DisableFilterIfHost]
         public async Task Delete<#= EntityName #>Async(List<IdInput> input)
         {
 		   await _<#= entityName #>Manager.DeleteByIdsAsync(input.Select(p => p.Id));
