@@ -34,6 +34,7 @@ using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.Runtime.Caching;
 using CH.Spartan.Domain;
+using CH.Spartan.Infrastructure;
 
 namespace <#= ModuleNamespace #>
 {

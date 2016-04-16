@@ -35,7 +35,7 @@ using Abp.Web.Mvc.Authorization;
 using CH.Spartan.Authorization;
 using <#= ModuleNamespace #>;
 using <#= ModuleNamespace #>.Dto;
-
+using CH.Spartan.Infrastructure;
 namespace <#= ProjectNamespace #>.Controllers
 {
     [AbpMvcAuthorize]
@@ -58,13 +58,21 @@ namespace <#= ProjectNamespace #>.Controllers
         }
         #endregion
 
-        #region 搜索
+        #region 查询
 
         [HttpGet]
-         [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
-        public async Task<JsonResult> Search<#= EntityName #>(Get<#= EntityName #>ListPagedInput input)
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
+        public async Task<JsonResult> Get<#= EntityName #>ListPaged(Get<#= EntityName #>ListPagedInput input)
         {
             var result = await _<#= entityName #>AppService.Get<#= EntityName #>ListPagedAsync(input);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        
+         [HttpGet]
+        [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
+        public async Task<JsonResult> Get<#= EntityName #>List(Get<#= EntityName #>ListPagedInput input)
+        {
+            var result = await _<#= entityName #>AppService.Get<#= EntityName #>ListAsync(input);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
         #endregion

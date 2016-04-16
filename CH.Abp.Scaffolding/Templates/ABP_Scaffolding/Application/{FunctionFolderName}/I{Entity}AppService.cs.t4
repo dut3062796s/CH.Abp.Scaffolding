@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using <#= ModuleNamespace #>.Dto;
-
+using CH.Spartan.Infrastructure;
 namespace <#= ModuleNamespace #>
 {
 
@@ -51,6 +51,13 @@ namespace <#= ModuleNamespace #>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<PagedResultOutput<Get<#= EntityName #>ListDto>> Get<#= EntityName #>ListPagedAsync(Get<#= EntityName #>ListPagedInput input);
+
+		/// <summary>
+        /// 获取 集合 自动补全
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        Task<ListResultOutput<ComboboxItemDto>> Get<#= EntityName #>ListAutoCompleteAsync(Get<#= EntityName #>ListInput input);
 
         /// <summary>
         /// 添加 <#= FunctionName #>
