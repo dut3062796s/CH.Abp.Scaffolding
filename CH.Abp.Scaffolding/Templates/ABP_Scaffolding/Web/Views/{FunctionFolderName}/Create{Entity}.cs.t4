@@ -35,10 +35,12 @@
     @Scripts.Render("~/scripts/plugins/edit")
     <script type="text/javascript">
         var from = $("#form");
+        var callback = null;
         (function ($) {
             if (!$) {
                 return;
             }
+               $(function () {
             from.validate({
                 submitHandler: function (form) {
                     var data =
@@ -49,20 +51,24 @@
                         url: "/<#= menuName2 #>/Create<#= EntityName #>",
                         data: JSON.stringify(data)
                     }).done(function (result) {
-                        abp.notify.success("@L("添加成功")");
+                         if (callback) {
+                                callback(result, "@L("添加成功")");
+                            }
                         abp.dialog.close();
                     });
                 }
             });
+             });
         })(jQuery);
 
-        function submitForm() {
+         function submitForm(cb) {
+            callback = cb;
             from.submit();
         }
     </script>
 }
 
-<div class="ibox float-e-margins @(SpartanConsts.DefaultAnimate) edit">
+<div class="ibox float-e-margins @(SpartanConsts.DefaultAnimate)  edit-col-1">
    <form class="form-horizontal" id="form">
     <div class="ibox-content">
              <div class="row">
@@ -78,6 +84,7 @@ for(int i=0;i<DtoMetaTable.Columns.Count;i++)
                         <label class="col-sm-4 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
                         <div class="col-sm-8 ">
 <#                      WriteColControl(column, "",EntityName); #>
+ <span class="help-block m-b-none">@L("")</span>
                         </div>
                     </div>
  <#   
@@ -92,7 +99,7 @@ for(int i=0;i<DtoMetaTable.Columns.Count;i++)
                         <label class="col-sm-4 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
                         <div class="col-sm-8">
 <#                      WriteColControl(column, "",EntityName); #>
- <span class="help-block m-b-none"></span>
+ <span class="help-block m-b-none">@L("")</span>
          </div>
                     </div>
  <# 
