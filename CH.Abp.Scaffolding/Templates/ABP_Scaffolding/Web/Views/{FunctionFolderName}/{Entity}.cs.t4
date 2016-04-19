@@ -172,7 +172,7 @@
                     </div>
                     <table id="table"
                            data-toggle="table"
-                           data-url="/<#= menuName2 #>/Search<#= EntityName #>"
+                           data-url="/<#= menuName2 #>/Get<#= EntityName #>ListPaged"
                            data-toolbar="#tableToolbar"
                            data-height="550"
                            data-show-export="true">
