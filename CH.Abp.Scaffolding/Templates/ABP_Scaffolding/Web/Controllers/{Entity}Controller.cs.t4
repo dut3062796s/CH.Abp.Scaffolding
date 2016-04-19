@@ -70,7 +70,7 @@ namespace <#= ProjectNamespace #>.Controllers
         
          [HttpGet]
         [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>)]
-        public async Task<JsonResult> Get<#= EntityName #>List(Get<#= EntityName #>ListPagedInput input)
+        public async Task<JsonResult> Get<#= EntityName #>List(Get<#= EntityName #>ListInput input)
         {
             var result = await _<#= entityName #>AppService.Get<#= EntityName #>ListAsync(input);
             return Json(result, JsonRequestBehavior.AllowGet);
