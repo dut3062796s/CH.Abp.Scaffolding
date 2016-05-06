@@ -150,15 +150,14 @@
 <div class="wrapper wrapper-content @(SpartanConsts.DefaultAnimate) list">
     <div class="row">
         <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content list-toolbar">
+                <div class="list-toolbar">
                     <form role="form" class="form-inline" id="form">
                         <div class="form-group">
                             @Html.SearchText(L("请输入关键字"), L("查询"))
                         </div>
                     </form>
                 </div>
-                <div class="ibox-content list-content">
+                <div class="list-content">
                     <div class="btn-group hidden-xs" id="tableToolbar" role="group">
 						@if (IsGranted(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Create))
 						{
@@ -192,7 +191,6 @@
                         </thead>
                     </table>
                 </div>
-            </div>
         </div>
     </div>
 </div>
