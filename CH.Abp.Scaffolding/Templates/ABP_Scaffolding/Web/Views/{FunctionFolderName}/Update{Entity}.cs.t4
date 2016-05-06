@@ -64,48 +64,24 @@
     </script>
 }
 
-<div class="ibox float-e-margins @(SpartanConsts.DefaultAnimate) edit-col-1">
-   <form class="form-horizontal" id="form">
-    <input name="Id" class="form-control" type="hidden" value="@Model.<#= EntityName #>.Id">
-    <div class="ibox-content">
-             <div class="row">
-<#
-
+<div class="wrapper wrapper-content @(SpartanConsts.DefaultAnimate) edit-col-1">
+   <form class="form" id="form">
+   <input name="Id" class="form-control" type="hidden" value="@Model.<#= EntityName #>.Id">
+           <div class="row">
+            <div class="col-sm-12">
+			<#
 for(int i=0;i<DtoMetaTable.Columns.Count;i++)
 {
     MetaColumnInfo column=DtoMetaTable.Columns[i];
     if (!column.IsDtoVisible) continue;
 #>
-     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
-                        <div class="col-sm-8">
+                        <label class="control-label" for="<#= column.Name #>">@L("<#= GetFormControlLabel(column) #>"):</label>
 <#                      WriteColControl(column, "",EntityName); #>
- <span class="help-block m-b-none">@L("")</span>
-                        </div>
-                    </div>
- <#   
-                if(i==0||i%2==0)
-                {
-                    i++;
-                    if(i==DtoMetaTable.Columns.Count) continue;
-                column=DtoMetaTable.Columns[i];
-                 if (!column.IsDtoVisible) continue;
-#>
- <div class="form-group">
-                        <label class="col-sm-4 control-label">@L("<#= GetFormControlLabel(column) #>"):</label>
-                        <div class="col-sm-8">
-<#                      WriteColControl(column, "",EntityName); #>
- <span class="help-block m-b-none">@L("")</span>
-         </div>
-                    </div>
- <# 
-                }
-#>
-  </div>
- <#   
-}
-#> </div>
-    </div>
- </form>
+ <span class="help-block">@L("")</span>
+                </div>
+ <# }#>   
+			 </div>
+		</div>
+      </form>
 </div>
