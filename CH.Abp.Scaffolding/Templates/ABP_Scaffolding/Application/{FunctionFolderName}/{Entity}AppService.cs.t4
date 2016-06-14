@@ -98,15 +98,15 @@ namespace <#= ModuleNamespace #>
             await _<#= entityName #>Repository.UpdateAsync(<#= entityName #>);
         }
 	
-        public Create<#= EntityName #>Output GetNew<#= EntityName #>()
+        public GetCreate<#= EntityName #>Output GetCreate<#= EntityName #>()
         {
-            return new Create<#= EntityName #>Output(new Create<#= EntityName #>Dto());
+            return new GetCreate<#= EntityName #>Output(new Create<#= EntityName #>Dto());
         }
         
-		public async Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
+		public async Task<GetUpdate<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input)
         {
             var result = await _<#= entityName #>Repository.GetAsync(input.Id);
-            return new Update<#= EntityName #>Output(result.MapTo<Update<#= EntityName #>Dto>());
+            return new GetUpdate<#= EntityName #>Output(result.MapTo<Update<#= EntityName #>Dto>());
         }
 
         public async Task Delete<#= EntityName #>Async(List<IdInput> input)

@@ -25,7 +25,7 @@
      var moduleName = ToCamelCase(ModuleName);
      var menuName2= MenuName.Substring(0, MenuName.Length - 1);
 #>
-@model <#= ModuleNamespace #>.Dto.Create<#= EntityName #>Output
+@model <#= ModuleNamespace #>.Dto.GetCreate<#= EntityName #>Output
 @section styles
 {
     @Styles.Render("~/styles/plugins/edit")

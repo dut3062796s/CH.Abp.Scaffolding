@@ -77,14 +77,14 @@ namespace <#= ModuleNamespace #>
         /// 获取 新<#= FunctionName #>
         /// </summary>
         /// <returns></returns>
-        Create<#= EntityName #>Output GetNew<#= EntityName #>();
+        GetCreate<#= EntityName #>Output GetCreate<#= EntityName #>();
 
         /// <summary>
         /// 获取 更新<#= FunctionName #>
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        Task<Update<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input);
+        Task<GetUpdate<#= EntityName #>Output> GetUpdate<#= EntityName #>Async(IdInput input);
 
         /// <summary>
         /// 删除 <#= FunctionName #>

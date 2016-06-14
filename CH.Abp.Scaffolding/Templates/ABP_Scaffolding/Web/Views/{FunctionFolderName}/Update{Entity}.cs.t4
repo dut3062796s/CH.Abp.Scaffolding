@@ -25,7 +25,7 @@
 	 var moduleName = ToCamelCase(ModuleName);
 	 var menuName2= MenuName.Substring(0, MenuName.Length - 1);
 #>
-@model <#= ModuleNamespace #>.Dto.Update<#= EntityName #>Output
+@model <#= ModuleNamespace #>.Dto.GetUpdate<#= EntityName #>Output
 @section scripts
 {
     @Scripts.Render("~/scripts/plugins/edit")

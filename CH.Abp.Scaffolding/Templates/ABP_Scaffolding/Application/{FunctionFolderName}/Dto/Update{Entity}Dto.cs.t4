@@ -68,9 +68,13 @@ namespace <#= ModuleNamespace #>.Dto
         public Update<#= EntityName #>Dto <#= EntityName #> { get; set; }
     }
 
-    public class Update<#= EntityName #>Output : IOutputDto
+    public class GetUpdate<#= EntityName #>Output : IOutputDto
     {
-        public Update<#= EntityName #>Output(Update<#= EntityName #>Dto <#= entityName #>)
+ 		public GetUpdate<#= EntityName #>Output()
+        {
+        }
+
+        public GetUpdate<#= EntityName #>Output(Update<#= EntityName #>Dto <#= entityName #>)
         {
             <#= EntityName #> = <#= entityName #>;
         }

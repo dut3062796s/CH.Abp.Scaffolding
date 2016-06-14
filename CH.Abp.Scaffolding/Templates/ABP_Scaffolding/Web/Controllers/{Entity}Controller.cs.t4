@@ -82,7 +82,7 @@ namespace <#= ProjectNamespace #>.Controllers
         [AbpMvcAuthorize(<#= ProjectName #>PermissionNames.<#= MenuName #>_<#= EntityName #>_Create)]
         public ActionResult Create<#= EntityName #>()
         {
-            var result = _<#= entityName #>AppService.GetNew<#= EntityName #>();
+            var result = _<#= entityName #>AppService.GetCreate<#= EntityName #>();
             return View(result);
         }
 

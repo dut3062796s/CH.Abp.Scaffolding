@@ -67,9 +67,14 @@ namespace <#= ModuleNamespace #>.Dto
         public Create<#= EntityName #>Dto <#= EntityName #> { get; set; }
     }
 
-    public class Create<#= EntityName #>Output : IOutputDto
+    public class GetCreate<#= EntityName #>Output : IOutputDto
     {
-        public Create<#= EntityName #>Output(Create<#= EntityName #>Dto <#= entityName #>)
+		public GetCreate<#= EntityName #>Output()
+        {
+           
+        }
+
+        public GetCreate<#= EntityName #>Output(Create<#= EntityName #>Dto <#= entityName #>)
         {
             <#= EntityName #> = <#= entityName #>;
         }
